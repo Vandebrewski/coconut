@@ -1,0 +1,82 @@
+<ion-modal-view cache-view="false">
+    <ion-content class="header-background stables-bg">
+	<div ng-repeat="item in requestDetail">
+        <ion-header-bar align-title="center">
+            <h1 class="title"></h1>
+			<div class="buttons">
+            <button class="button button-clear button-icon ion-android-arrow-back" ng-click="closeModal()"></button>
+			<button class="button button-clear button-icon ion-android-more-vertical" id="menu-popover" ng-click="popover.show($event)"></button>
+			</div>
+        </ion-header-bar>
+
+        <form>
+            <div class="detail-header" style="background: url('db/img/{{item.img}}') no-repeat; background-size: cover;">
+                <h2 class="detail-name">{{item.menu}}</h2>
+                <div class="detail-price">{{item.category}}</div>
+                <div class="detail-like">
+                    <button class="button button-clear" ng-click="doLike(item.id)"><i class="ion-heart"></i></button>
+                </div>
+            </div>
+            <div class="list card light-bg">
+                <div class="item">
+                    <h2><i class="icon ion-ios-information-outline"></i> Intro</h2>
+                </div>
+                <div class="item item-body">
+                    {{item.intro}}
+                </div>
+                <div class="item tabs tabs-secondary tabs-icon-left">
+                    <a class="tab-item" data-ink-color="#336699" data-ink-opacity="0.5">
+                        <i class="icon ion-clock"></i> {{item.times}} min
+                    </a>
+                    <a class="tab-item" data-ink-color="#336699" data-ink-opacity="0.5">
+                        <i class="icon ion-disc"></i> {{item.servings}} servings
+                    </a>
+                    <a class="tab-item" data-ink-color="#336699" data-ink-opacity="0.5">
+                        <i class="icon ion-fireball"></i> {{item.kcal}} kcal
+                    </a>
+                </div>
+            </div>			
+            <div class="list card light-bg">
+                <div class="item">
+                    <h2><i class="icon ion-ios-cart-outline"></i> Ingredients</h2>
+                </div>
+                <div class="item item-body">
+					<div class="item item-checkbox" ng-repeat="itemIngredient in requestIngredient">
+						<label class="checkbox">
+							<ion-checkbox ng-model="isChecked[itemIngredient.rowid].checked" ng-change="cartChange(itemIngredient.rowid)"></ion-checkbox>
+						</label>
+						<p>{{itemIngredient.composition}} {{itemIngredient.unit}} {{itemIngredient.desc}}</p>
+					</div>
+                </div>
+                <div class="item tabs tabs-secondary tabs-icon-left">
+                    <a class="tab-item" data-ink-color="#336699" data-ink-opacity="0.5" ng-click="clearCart(item.id)">
+                        CLEAR
+                    </a>
+					<!--
+                    <a class="tab-item" data-ink-color="#336699" data-ink-opacity="0.5">
+                        RECALCULATE
+                    </a>
+					-->
+                </div>
+            </div>
+            <div class="list card light-bg">
+                <div class="item">
+                    <h2><i class="icon ion-ios-bookmarks-outline"></i> Ingstruction</h2>
+                </div>
+                <div class="item item-body">
+					<div class="list">
+						<div class="item" ng-repeat="itemInstruction in requestInstruction">
+							<b><i class="icon ion-ios-clock-outline"></i> {{itemInstruction.title}}</b>
+							<p>{{itemInstruction.description}}</p>
+						</div>
+					</div>
+					</div>
+                </div>
+            </div>
+        </form>
+		</div>
+    </ion-content>
+	<button id="fab" ng-click="scrollTop()" class="button button-positive button-fab button-fab-bottom-right">
+        <i class="icon ion-android-arrow-up"></i>
+    </button>
+</ion-modal-view>

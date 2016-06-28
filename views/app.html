@@ -1,0 +1,18 @@
+<ion-view view-title="All recipes" cache-view="false">
+    <ion-content class="stables-bg" lazy-scroll>
+     <div class="row row-wrap" afkl-image-container>
+        <div class="col col-50" ng-repeat="item in requestData" ng-click="openModal(item.id)">
+          <div class="card card-grid text-align-center margin-0">
+              <div afkl-lazy-image="db/img/{{item.img}}"></div>
+            <div class="item item-divider">
+				{{item.menu}}
+            </div>
+          </div>
+        </div>
+		<ion-infinite-scroll ng-if="!noMoreItemsAvailable" on-infinite="loadMore()" distance="10%"></ion-infinite-scroll>
+      </div>
+    </ion-content>
+	<button id="fab" ng-click="showFilterBar()" class="button button-balanced button-fab button-fab-bottom-right">
+        <i class="icon ion-search"></i>
+    </button>
+</ion-view>

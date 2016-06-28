@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.recipes.finder" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-    <name>Recipes Finder</name>
+<widget id="com.new-impulse.coconutoiluses" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+    <name>CoconutOil</name>
     <description>
-       Recipes Finder
+       CoconutOil
     </description>
-    <author email="rizal.saleh1@gmail.com" href="http://mycodetemplates.com">
-        Rizals
+    <author email="basvanderwilk@gmail.com" href="http://new-impulse.com">
+        Bas
     </author>
     <preference name="permissions" value="none" />
     <preference name="phonegap-version" value="cli-5.2.0" />

@@ -7,17 +7,55 @@
 
 <!-- versionCode is optional and Android only -->
 
-  <name>Coconut oil uses</name>
+  <name>Coconut Oil</name>
 
   <description>
-      Descibes the uses and benefits of coconut oil
+      Uses and Benefits of Coconut Oil
   </description>
 
-  <author href="https://build.phonegap.com" email="support@phonegap.com">
+  <author href="http://new-impulse.com" email="info@new-impulse.com">
      New-impulse media
   </author>
   
+    
+      <!-- all platforms -->
+  <preference name="phonegap-version" value="cli-6.0.0" />
+  <preference name="orientation" value="portrait" />
+  <preference name="fullscreen" value="true" />
+
+  <!-- iOS only -->
+  <preference name="target-device" value="universal" />
+  <preference name="prerendered-icon" value="false" />
+  <preference name="detect-data-types" value="true" />
+  <preference name="exit-on-suspend" value="true" />
+  <preference name="deployment-target" value="6.0" />
+
+  <!-- Android only -->
+  <preference name="android-build-tool" value="ant|gradle" />
+  <preference name="android-minSdkVersion" value="10" />
+  <preference name="android-maxSdkVersion" value="15" />
+  <preference name="android-targetSdkVersion" value="12" />
+  <preference name="android-installLocation" value="auto" />
+  <preference name="android-windowSoftInputMode" value="stateVisible|adjustResize" />
+    
+    
+    
+    
+    <content src="index.html" />
+    
+    <preference name="webviewbounce" value="false" />
+    <preference name="UIWebViewBounce" value="false" />
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="BackupWebStorage" value="none" />
+
+    <preference name="SplashScreen" value="screen"/>
+    <preference name="SplashScreenDelay" value="3000"/>
+    <feature name="StatusBar">
+        <param name="ios-package" onload="true" value="CDVStatusBar" />
+    </feature>
+      
   
+	
   
       <platform name="android">
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
@@ -59,4 +97,25 @@
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
     </platform>
 
+
+
+  <plugin name="cordova-plugin-splashscreen" spec="3.0.0"/>
+
+    <preference name="AutoHideSplashScreen" value="false" /> 
+	<preference name="auto-hide-splash-screen" value="false" />
+	<preference name="ShowSplashScreen" value="false" /> 
+	<preference name="FadeSplashScreen" value="false"/> 
+	<preference name="ShowSplashScreenSpinner" value="false"/> 
+   <preference name="disable-cursor" value="false" /> 
+   <preference name="android-installLocation" value="auto" /> 
+   <preference name="StatusBarOverlaysWebView" value="true" /> 
+ 
+
+    <icon src="resources/android/icon/drawable-xhdpi-icon.png" />
+    <allow-navigation href="*" />
+    <allow-intent href="*" />
+    <access origin="*" />
+
+
 </widget>
+

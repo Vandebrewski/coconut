@@ -1,405 +1,393 @@
-angular.module('mobileApp.controllers', [])
+angular.module('your_app_name.controllers', [])
 
-.controller('AppCtrl', function($rootScope, $scope, $ionicPopup, $nlFramework, $timeout, $ionicScrollDelegate, ionicMaterialInk, $ionicFilterBar, $cordovaSQLite, $ionicModal, $ionicPopover, $cordovaAppRate, $cordovaSocialSharing, $cordovaStatusbar) {
-	console.log( 'AppCtrl' );
-	$rootScope.title = 'All recipes';
-	$scope.page = 0;
-	$scope.limit = 8;
-	$scope.noMoreItemsAvailable = false;
-	$scope.noItemFound = false;
-	$scope.infiniteScrollComplete = 0;
-	$scope.requestData = [];
-	$scope.requestDatas = [];
-	
-	var filterBarInstance;
-	
-	ionicMaterialInk.displayEffect();
+.controller('AuthCtrl', function($scope, $ionicConfig) {
 
-    $ionicModal.fromTemplateUrl('views/detail.html', {
-        scope: $scope
-    }).then(function (modal) {
-        $scope.modal = modal;
-    });
+})
 
-    // Click like detail
-    $scope.doLike = function(id){
-        var btn_like = angular.element(document.querySelector('.detail-like'));
-        btn_like.find('i').toggleClass('active');
-			
-			if(btn_like.find('i').hasClass('active')){
-				var query = "UPDATE recipes SET favorites = ? WHERE id = ?";
-				$cordovaSQLite.execute(db, query, ['true', id]).then(function(res) {
-					// set options
-					var options = {
-					  title: 'Your bookmark this item!',
-					  timeout: 2500
-					}
-					$nlFramework.toast.show( options );	
-					}, function (err) {
-					   //alert(err);
-				});	
-			}else{
-				var query = "UPDATE recipes SET favorites = ? WHERE id = ?";
-				$cordovaSQLite.execute(db, query, ['false', id]).then(function(res) {
-						// set options
-						var options = {
-						  title: 'Your cancel bookmark this item!',
-						  timeout: 2500
-						}
-						$nlFramework.toast.show( options );	
-					}, function (err) {
-					   //alert(err);
-				});				
-			}
-	}
-		
-    // Click rate
-    $scope.doRate = function(id){
-		$cordovaAppRate.promptForRating(true).then(function (result) {
-			// success
-		});
-	}
-	
-    // Click share
-    $scope.doShare = function(){
-		
-		var Ingredient = '';
-		var res = $rootScope.requestIngredient; 
-		for(var i = 0; i < res.length; i++) {
-			Ingredient += res[i].composition+' '+res[i].unit+' '+res[i].desc+'\n';
+// APP
+.controller('AppCtrl', function($scope, $ionicConfig) {
+
+})
+
+.controller('ProfileCtrl', function($scope) {
+	$scope.image = 'https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg';
+})
+
+
+
+.controller('RateApp', function($scope) {
+	$scope.rateApp = function(){
+		if(ionic.Platform.isIOS()){
+			//you need to set your own ios app id
+			AppRate.preferences.storeAppURL.ios = '1234555553>';
+			AppRate.promptForRating(true);
+		}else if(ionic.Platform.isAndroid()){
+			//you need to set your own android app id
+			AppRate.preferences.storeAppURL.android = 'market://details?id=ionFB';
+			AppRate.promptForRating(true);
 		}
-
-		var Instruction = '';
-		var req = $rootScope.requestInstruction; 
-		for(var i = 0; i < req.length; i++) {
-			Ingredient += '\n'+req[i].title+'\n'+req[i].description+'\n';
-		}
-		
-		$cordovaSocialSharing.share($rootScope.requestDetail[0].menu+'\n\n'+$rootScope.requestDetail[0].intro+'\n\n'+Ingredient+'\n\n'+Instruction, null, null, 'http://mycodetemplates.com') // Share via native share sheet
-		.then(function(result) {
-		  // Success!
-		}, function(err) {
-		  // An error occured. Show a message to the user
-		});
-		console.log();   
-	}
-	
-    // Click share Ingredient
-    $scope.doShareIngredient = function(){
-		
-		var Ingredient = '';
-		var res = $rootScope.requestIngredient; 
-		for(var i = 0; i < res.length; i++) {
-			Ingredient += res[i].composition+' '+res[i].unit+' '+res[i].desc+'\n';
-		}
-		
-		$cordovaSocialSharing.share($rootScope.requestDetail[0].menu+'\n\n'+Ingredient, null, null, 'http://mycodetemplates.com') // Share via native share sheet
-		.then(function(result) {
-		  // Success!
-		}, function(err) {
-		  // An error occured. Show a message to the user
-		});
-		console.log();   
-	}
-	
-	// Scroll infinite
-	$scope.loadMore = function(){
-		$rootScope.selects();
 	};
+})
 
-	// select database
-	$rootScope.selects = function() {
-		
-		$rootScope.title = 'All recipes';
-		$rootScope.loading();
-		// Execute SELECT statement to load message from database.
-		$cordovaSQLite.execute(db, "SELECT id, menu, category, img, intro, times, servings, kcal FROM recipes limit "+$scope.page+","+$scope.limit).then(function(res) {
 
-			if (res.rows.length > 0) {
-				
-				if($scope.infiniteScrollComplete == 0){
-					for(var i = 0; i < res.rows.length; i++) {
-							$scope.requestData.push({id: res.rows.item(i).id, menu: res.rows.item(i).menu, img: res.rows.item(i).img});
-					}
-				}
-				$scope.page = $scope.page+$scope.limit;
-			}
-			
-			if (res.rows.length != $scope.limit){
-				$scope.infiniteScrollComplete = 1;
-			    $scope.noMoreItemsAvailable = true;
-			    $scope.noItemFound = true;	
-			}
-			$rootScope.loadingHide(600);
-			$scope.$broadcast('scroll.infiniteScrollComplete');
-		},
-		function(error) {
-			//$scope.statusMessage = "Error on loading: " + error.message;
-				}
-		);				
-	}	
 
-	// search database
-	$rootScope.search = function(data) {
-		$scope.requestData = [];
-		$rootScope.title = 'Search';
-		$rootScope.loading();
-		// Execute SELECT statement to load message from database.
-		$cordovaSQLite.execute(db, "SELECT id, menu, category, img, intro, times, servings, kcal FROM recipes WHERE menu LIKE '%"+data+"%'").then(function(res) {
+.controller('AdsCtrl', function($scope, $ionicActionSheet, AdMob, iAd) {
 
-			if (res.rows.length > 0) {
-				
-				for(var i = 0; i < res.rows.length; i++) {
-						//console.log(res.rows.item(i).menu);
-						$scope.requestData.push({id: res.rows.item(i).id, menu: res.rows.item(i).menu, img: res.rows.item(i).img});
-				}
-			}
+	$scope.manageAdMob = function() {
 
-			$rootScope.loadingHide(600);
-		},
-		function(error) {
-			//$scope.statusMessage = "Error on loading: " + error.message;
-				}
-		);				
-	}
-	
-	$rootScope.favorites = function() {
-		$rootScope.loading();
-		$rootScope.title = 'Favorites';
-		// Execute SELECT statement to load message from database.
-		$cordovaSQLite.execute(db, "SELECT id, menu, category, img, intro, times, servings, kcal FROM recipes WHERE favorites = 'true'").then(function(res) {
-			if (res.rows.length > 0) {
-				$scope.requestData = [];
-					
-				for(var i = 0; i < res.rows.length; i++) {
-					$scope.requestData.push({id: res.rows.item(i).id, menu: res.rows.item(i).menu, img: res.rows.item(i).img});
-				}
-			$rootScope.loadingHide(600);
-			}
-		},
-		function(error) {
-			//$scope.statusMessage = "Error on loading: " + error.message;
-				}
-		);				
-	};
-
-	$rootScope.category = function(title) {
-		$rootScope.loading();
-		$rootScope.title = title;
-		// Execute SELECT statement to load message from database.
-		$cordovaSQLite.execute(db, "SELECT id, menu, category, img, intro, times, servings, kcal FROM recipes WHERE category = '"+title+"'").then(function(res) {
-			if (res.rows.length > 0) {
-				$scope.requestData = [];
-					
-				for(var i = 0; i < res.rows.length; i++) {
-					$scope.requestData.push({id: res.rows.item(i).id, menu: res.rows.item(i).menu, img: res.rows.item(i).img});
-				}
-				$rootScope.loadingHide(600);
-			}
-		},
-		function(error) {
-			//$scope.statusMessage = "Error on loading: " + error.message;
-				}
-		);				
-	};
-	
-	$rootScope.all = function() {
-		$rootScope.title = 'All recipes';
-		$scope.noMoreItemsAvailable = false;
-		$scope.requestData = [];
-		$scope.infiniteScrollComplete = 0;
-		$scope.page = 0;
-		$scope.limit = 8;
-		setTimeout( function(){
-			$rootScope.selects();
-		}, 500);			
-	}
-
-    $rootScope.openAbout = function() {
-        var alertPopup = $ionicPopup.alert({
-            title: 'ABOUT',
-            template: '<b>Recipes finder app</b> created by rizal.saleh1@gmail.com'
-        });
-
-        $timeout(function() {
-            //ionic.material.ink.displayEffect();
-            ionicMaterialInk.displayEffect();
-        }, 0);
-    };
-
-	// Filter bar	
-    $scope.showFilterBar = function () {
-		$scope.requestData = [];
-		filterBarInstance = $ionicFilterBar.show({
-			items: $scope.requestData,
-			update: function (filteredItems, filterText) {
-			$rootScope.search(filterText);
-			setTimeout( function(){
-				if($scope.requestData.length == 0){
-					// set options
-					var options = {
-					  title: 'Your search data not found!',
-					  trueCallback: $rootScope.all(),
-					  timeout: 2500
-					}
-					$nlFramework.toast.show( options );	
-				}
-			}, 200);		
-			
-			$rootScope.loading();
-			//$scope.requestData = filteredItems;
-			$rootScope.loadingHide(600);
-			}
-		});
-    };
-	
-	// Scroll top
-	$scope.scrollTop = function() {
-		$ionicScrollDelegate.scrollTop();
-	};
- 
-    // Detail popover
-    var templatePopover = '<ion-popover-view style="height:120px; width: 180px; padding: 10px;" ng-click="closePopover();">' +
-					'   	<ion-list>' +
-					'   	<ion-item menu-close class="ink dark-bg" ng-click="doShareIngredient();">Send shopping list</ion-item>' +
-					'   	<ion-item menu-close class="ink dark-bg" ng-click="doShare();">Share</ion-item>' +
-					'   	</ion-list>' +
-					'</ion-popover-view>';
-	
-    $scope.popover = $ionicPopover.fromTemplate(templatePopover, {
-        scope: $scope
-    });
-	
-    $scope.closePopover = function () {
-        $scope.popover.hide();	
-    };
-    //Cleanup the popover when we're done with it!
-    $scope.$on('$destroy', function () {
-        $scope.popover.remove();
-    });
-	
-    // Popover
-    $scope.openPopover = function() {
-        $scope.$parent.popover.show();
-    }
-	
-	$scope.cartChange = function(id) {
-		if($scope.isChecked[id].checked){
-			var query = "UPDATE ingredients SET cart = ? WHERE rowid = ?";
-			$cordovaSQLite.execute(db, query, ['true', id]).then(function(res) {
-				  //alert("insertId: " + res.insertId);
-				}, function (err) {
-				   //alert(err);
-			});	
-		}else{
-			var query = "UPDATE ingredients SET cart = ? WHERE rowid = ?";
-			$cordovaSQLite.execute(db, query, ['false', id]).then(function(res) {
-				  //alert("insertId: " + res.insertId);
-				}, function (err) {
-				   //alert(err);
-			});				
-		}					
-	};
-  
-     // Click clear cart
-    $scope.clearCart = function(id){
-		var query = "UPDATE ingredients SET cart = ? WHERE IDrecipe = ?";
-		$cordovaSQLite.execute(db, query, ['false', id]).then(function(res) {
-			$rootScope.isChecked = {};
-			// Execute SELECT statement to load message from database.
-			$cordovaSQLite.execute(db, "SELECT rowid, composition, unit, desc, cart FROM ingredients WHERE IDrecipe ="+id).then(function(res) {
-				if (res.rows.length > 0) {
-					for(var i = 0; i < res.rows.length; i++) {
-					if(res.rows.item(i).cart == 'true'){
-							$rootScope.isChecked[res.rows.item(i).rowid] = { checked: true };
-						}else{
-							$rootScope.isChecked[res.rows.item(i).rowid] = { checked: false };
-						}
-					}
-				}
-				
+		// Show the action sheet
+		var hideSheet = $ionicActionSheet.show({
+			//Here you can add some more buttons
+			buttons: [
+				{ text: 'Show Banner' },
+				{ text: 'Show Interstitial' }
+			],
+			destructiveText: 'Remove Ads',
+			titleText: 'Choose the ad to show',
+			cancelText: 'Cancel',
+			cancel: function() {
+				// add cancel code..
 			},
-			function(error) {
-				//$scope.statusMessage = "Error on loading: " + error.message;
+			destructiveButtonClicked: function() {
+				console.log("removing ads");
+				AdMob.removeAds();
+				return true;
+			},
+			buttonClicked: function(index, button) {
+				if(button.text == 'Show Banner')
+				{
+					console.log("show banner");
+					AdMob.showBanner();
 				}
-			);
-			}, function (err) {
-				   //alert(err);
+
+				if(button.text == 'Show Interstitial')
+				{
+					console.log("show interstitial");
+					AdMob.showInterstitial();
+				}
+
+				return true;
+			}
 		});
-	}
-	// function to open the modal
-	$scope.openModal = function (id) {
-		
-		$rootScope.requestDetail = [];
-		// Execute SELECT statement to load message from database.
-		$cordovaSQLite.execute(db, "SELECT id, menu, category, img, intro, times, servings, kcal, favorites FROM recipes WHERE id ="+id).then(function(res) {
-			if (res.rows.length > 0) {		
-				$rootScope.requestDetail.push({id: res.rows.item(0).id,times: res.rows.item(0).times, servings: res.rows.item(0).servings, kcal: res.rows.item(0).kcal, category: res.rows.item(0).category, menu: res.rows.item(0).menu, intro: res.rows.item(0).intro, img: res.rows.item(0).img});
-				if(res.rows.item(0).favorites == 'true'){
-					setTimeout( function(){
-						var btn_like = angular.element(document.querySelector('.detail-like'));
-						btn_like.find('i').addClass('active');
-					}, 200);
-				}else{
-					setTimeout( function(){
-						var btn_like = angular.element(document.querySelector('.detail-like'));
-						btn_like.find('i').removeClass('active');
-					}, 200);
-				}				
-			
-			}
-			$cordovaStatusbar.hide();
-		},
-		function(error) {
-			//$scope.statusMessage = "Error on loading: " + error.message;
-			}
-		);
-		
-		$rootScope.isChecked = {};
-		$rootScope.requestIngredient = [];
-		// Execute SELECT statement to load message from database.
-		$cordovaSQLite.execute(db, "SELECT rowid, composition, unit, desc, cart FROM ingredients WHERE IDrecipe ="+id).then(function(res) {
-			if (res.rows.length > 0) {
-				for(var i = 0; i < res.rows.length; i++) {
-					$rootScope.requestIngredient.push({rowid: res.rows.item(i).rowid, composition: res.rows.item(i).composition, unit: res.rows.item(i).unit, desc: res.rows.item(i).desc, cart: res.rows.item(i).cart, id: id});
-					if(res.rows.item(i).cart == 'true'){
-						$rootScope.isChecked[res.rows.item(i).rowid] = { checked: true };
-					}else{
-						$rootScope.isChecked[res.rows.item(i).rowid] = { checked: false };
-					}
-				}
-			}
-			
-		},
-		function(error) {
-			//$scope.statusMessage = "Error on loading: " + error.message;
-			}
-		);	
-		
-		$rootScope.requestInstruction = [];
-		// Execute SELECT statement to load message from database.
-		$cordovaSQLite.execute(db, "SELECT title, description FROM instruction WHERE IDrecipes ="+id).then(function(res) {
-			if (res.rows.length > 0) {
-				for(var i = 0; i < res.rows.length; i++) {
-					$rootScope.requestInstruction.push({title: res.rows.item(i).title, description: res.rows.item(i).description, id: id});
-				}
-			}
-			
-		},
-		function(error) {
-			//$scope.statusMessage = "Error on loading: " + error.message;
-			}
-		);	
-		
-		$scope.modal.show();
 	};
 
-	// function to close the modal
-	$scope.closeModal = function () {
-		$scope.modal.hide();
-		$cordovaStatusbar.show();
-		$rootScope.loading();
-		$rootScope.loadingHide(600);
+	$scope.manageiAd = function() {
+
+		// Show the action sheet
+		var hideSheet = $ionicActionSheet.show({
+			//Here you can add some more buttons
+			buttons: [
+			{ text: 'Show iAd Banner' },
+			{ text: 'Show iAd Interstitial' }
+			],
+			destructiveText: 'Remove Ads',
+			titleText: 'Choose the ad to show - Interstitial only works in iPad',
+			cancelText: 'Cancel',
+			cancel: function() {
+				// add cancel code..
+			},
+			destructiveButtonClicked: function() {
+				console.log("removing ads");
+				iAd.removeAds();
+				return true;
+			},
+			buttonClicked: function(index, button) {
+				if(button.text == 'Show iAd Banner')
+				{
+					console.log("show iAd banner");
+					iAd.showBanner();
+				}
+				if(button.text == 'Show iAd Interstitial')
+				{
+					console.log("show iAd interstitial");
+					iAd.showInterstitial();
+				}
+				return true;
+			}
+		});
+	};
+})
+
+// FEED
+//brings all feed categories
+.controller('FeedsCategoriesCtrl', function($scope, $http) {
+	$scope.feeds_categories = [];
+
+	$http.get('feeds-categories.json').success(function(response) {
+		$scope.feeds_categories = response;
+	});
+})
+
+//bring specific category providers
+.controller('CategoryFeedsCtrl', function($scope, $http, $stateParams) {
+	$scope.category_sources = [];
+
+	$scope.categoryId = $stateParams.categoryId;
+
+	$http.get('feeds-categories.json').success(function(response) {
+		var category = _.find(response, {id: $scope.categoryId});
+		$scope.categoryTitle = category.title;
+		$scope.category_sources = category.feed_sources;
+	});
+})
+
+//this method brings posts for a source provider
+.controller('FeedEntriesCtrl', function($scope, $stateParams, $http, FeedList, $q, $ionicLoading, BookMarkService) {
+	$scope.feed = [];
+
+	var categoryId = $stateParams.categoryId,
+			sourceId = $stateParams.sourceId;
+
+	$scope.doRefresh = function() {
+
+		$http.get('feeds-categories.json').success(function(response) {
+
+			$ionicLoading.show({
+				template: 'Loading entries...'
+			});
+
+			var category = _.find(response, {id: categoryId }),
+					source = _.find(category.feed_sources, {id: sourceId });
+
+			$scope.sourceTitle = source.title;
+
+			FeedList.get(source.url)
+			.then(function (result) {
+				$scope.feed = result.feed;
+				$ionicLoading.hide();
+				$scope.$broadcast('scroll.refreshComplete');
+			}, function (reason) {
+				$ionicLoading.hide();
+				$scope.$broadcast('scroll.refreshComplete');
+			});
+		});
 	};
 
-});
+	$scope.doRefresh();
+
+	$scope.bookmarkPost = function(post){
+		$ionicLoading.show({ template: 'Post Saved!', noBackdrop: true, duration: 1000 });
+		BookMarkService.bookmarkFeedPost(post);
+	};
+})
+
+// SETTINGS
+.controller('SettingsCtrl', function($scope, $ionicActionSheet, $state) {
+	$scope.airplaneMode = true;
+	$scope.wifi = false;
+	$scope.bluetooth = true;
+	$scope.personalHotspot = true;
+
+	$scope.checkOpt1 = true;
+	$scope.checkOpt2 = true;
+	$scope.checkOpt3 = false;
+
+	$scope.radioChoice = 'B';
+
+	// Triggered on a the logOut button click
+	$scope.showLogOutMenu = function() {
+
+		// Show the action sheet
+		var hideSheet = $ionicActionSheet.show({
+			//Here you can add some more buttons
+			// buttons: [
+			// { text: '<b>Share</b> This' },
+			// { text: 'Move' }
+			// ],
+			destructiveText: 'Logout',
+			titleText: 'Are you sure you want to logout? This app is awsome so I recommend you to stay.',
+			cancelText: 'Cancel',
+			cancel: function() {
+				// add cancel code..
+			},
+			buttonClicked: function(index) {
+				//Called when one of the non-destructive buttons is clicked,
+				//with the index of the button that was clicked and the button object.
+				//Return true to close the action sheet, or false to keep it opened.
+				return true;
+			},
+			destructiveButtonClicked: function(){
+				//Called when the destructive button is clicked.
+				//Return true to close the action sheet, or false to keep it opened.
+				$state.go('auth.walkthrough');
+			}
+		});
+
+	};
+})
+
+
+
+// BOOKMARKS
+.controller('BookMarksCtrl', function($scope, $rootScope, BookMarkService, $state) {
+
+	$scope.bookmarks = BookMarkService.getBookmarks();
+
+	// When a new post is bookmarked, we should update bookmarks list
+	$rootScope.$on("new-bookmark", function(event){
+		$scope.bookmarks = BookMarkService.getBookmarks();
+	});
+
+	$scope.goToFeedPost = function(link){
+		window.open(link, '_blank', 'location=yes');
+	};
+	$scope.goToWordpressPost = function(postId){
+		$state.go('app.post', {postId: postId});
+	};
+})
+
+// WORDPRESS
+.controller('WordpressCtrl', function($scope, $http, $ionicLoading, PostService, BookMarkService) {
+	$scope.posts = [];
+	$scope.page = 1;
+	$scope.totalPages = 1;
+
+	$scope.doRefresh = function() {
+		$ionicLoading.show({
+			template: 'Loading posts...'
+		});
+
+		//Always bring me the latest posts => page=1
+		PostService.getRecentPosts(1)
+		.then(function(data){
+			$scope.totalPages = data.pages;
+			$scope.posts = PostService.shortenPosts(data.posts);
+
+			$ionicLoading.hide();
+			$scope.$broadcast('scroll.refreshComplete');
+		});
+	};
+
+	$scope.loadMoreData = function(){
+		$scope.page += 1;
+
+		PostService.getRecentPosts($scope.page)
+		.then(function(data){
+			//We will update this value in every request because new posts can be created
+			$scope.totalPages = data.pages;
+			var new_posts = PostService.shortenPosts(data.posts);
+			$scope.posts = $scope.posts.concat(new_posts);
+
+			$scope.$broadcast('scroll.infiniteScrollComplete');
+		});
+	};
+
+	$scope.moreDataCanBeLoaded = function(){
+		return $scope.totalPages > $scope.page;
+	};
+
+	$scope.bookmarkPost = function(post){
+		$ionicLoading.show({ template: 'Post Saved!', noBackdrop: true, duration: 1000 });
+		BookMarkService.bookmarkWordpressPost(post);
+	};
+
+	$scope.doRefresh();
+})
+
+// WORDPRESS2
+.controller('WordpressCtrl2', function($scope, $http, $ionicLoading, PostService2, BookMarkService) {
+	$scope.posts = [];
+	$scope.page = 1;
+	$scope.totalPages = 1;
+
+	$scope.doRefresh = function() {
+		$ionicLoading.show({
+			template: 'Loading posts...'
+		});
+
+		//Always bring me the latest posts => page=1
+		PostService2.getRecentPosts(1)
+		.then(function(data){
+			$scope.totalPages = data.pages;
+			$scope.posts = PostService2.shortenPosts(data.posts);
+
+			$ionicLoading.hide();
+			$scope.$broadcast('scroll.refreshComplete');
+		});
+	};
+
+	$scope.loadMoreData = function(){
+		$scope.page += 1;
+
+		PostService2.getRecentPosts($scope.page)
+		.then(function(data){
+			//We will update this value in every request because new posts can be created
+			$scope.totalPages = data.pages;
+			var new_posts = PostService2.shortenPosts(data.posts);
+			$scope.posts = $scope.posts.concat(new_posts);
+
+			$scope.$broadcast('scroll.infiniteScrollComplete');
+		});
+	};
+
+	$scope.moreDataCanBeLoaded = function(){
+		return $scope.totalPages > $scope.page;
+	};
+
+	$scope.bookmarkPost = function(post){
+		$ionicLoading.show({ template: 'Post Saved!', noBackdrop: true, duration: 1000 });
+		BookMarkService.bookmarkWordpressPost(post);
+	};
+
+	$scope.doRefresh();
+})
+
+// WORDPRESS POST
+.controller('WordpressPostCtrl', function($scope, post_data, $ionicLoading) {
+
+	$scope.post = post_data.post;
+	$ionicLoading.hide();
+
+	$scope.sharePost = function(link){
+		window.plugins.socialsharing.share('Check this post here: ', null, null, link);
+	};
+})
+
+
+// WORDPRESS POST2
+//.controller('WordpressPostCtrl2', function($scope, post_data, $ionicLoading) {
+
+//	$scope.post = post_data.post;
+//	$ionicLoading.hide();
+
+//	$scope.sharePost = function(link){
+//		window.plugins.socialsharing.share('Check this post here: ', null, null, link);
+//	};
+//})
+
+.controller('ImagePickerCtrl', function($scope, $rootScope, $ionicPlatform, $cordovaImagePicker) {
+
+	$scope.images = [];
+
+	$scope.selImages = function() {
+
+		//We use image picker plugin: http://ngcordova.com/docs/plugins/imagePicker/
+    //implemented for iOS and Android 4.0 and above.
+
+    $ionicPlatform.ready(function() {
+      $cordovaImagePicker.getPictures()
+       .then(function (results) {
+          for (var i = 0; i < results.length; i++) {
+            console.log('Image URI: ' + results[i]);
+            $scope.status_post.images.push(results[i]);
+          }
+        }, function(error) {
+          // error getting photos
+        });
+    });
+	};
+
+	$scope.removeImage = function(image) {
+		$scope.images = _.without($scope.images, image);
+	};
+
+	$scope.shareImage = function(image) {
+		window.plugins.socialsharing.share(null, null, image);
+	};
+
+	$scope.shareAll = function() {
+		window.plugins.socialsharing.share(null, null, $scope.images);
+	};
+})
+
+;

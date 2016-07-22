@@ -1,318 +1,295 @@
-var db;
-// populate data xlsx
-var url_xls = "db/recipes.xlsx";
-// Google ads key
-var adMobId = {
-    admob_banner_key: 'ca-app-pub-4507494592048108/5482181270',
-    admob_interstitial_key: 'ca-app-pub-4507494592048108/4005448076'
- };
-// config app raiting
-var prefs = {
-	language: 'en',
-	appName: 'Recipes Finder',
-	androidURL: 'market://details?id=com.recipes.finder',
-};
-		
-angular.module('mobileApp', ['ionic', 'ionic-material', 'ngRoute', 'ngCordova', 'mobileApp.controllers', 'nlFramework', 'ngLocalize', 'jett.ionic.filter.bar', 'afkl.lazyImage'])
+// Ionic Starter App
 
-.run(function($rootScope, $ionicPlatform, $nlFramework, $cordovaSQLite, $ionicLoading, $timeout, $cordovaAdMob, $cordovaStatusbar, $cordovaSplashscreen) {
-  
-  $ionicPlatform.ready(function() {
-	//Load splash
-	$cordovaSplashscreen.show();
-   
-   // assign parts for better usage
-    $rootScope.fw = $nlFramework;
-    $rootScope.drawer = $nlFramework.drawer;
-    $rootScope.refresh = $nlFramework.refresh;
-    $rootScope.burger = $nlFramework.burger;
-    $rootScope.config = $nlFramework.config;
-    $rootScope.toast = $nlFramework.toast;
-    $rootScope.menu = $nlFramework.menu;
-    
-	// show me config
-    console.log( $rootScope.config );
-   
-   // initialize the whole framework
-    var nlOptions = {
-      // global settings
-      speed: 0.2,
-      animation: 'ease',
-      // use action button
-      actionButton: true,
-      // use toast messages
-      toast: true,
-      // burger specific
-      burger: {
-        use: true,
-        endY: 6,
-        startScale: 1,
-        endScale: 0.7 
-      },
-      // content specific
-      content:{
-        topBarHeight: 56,
-        modify: true
-      },
-      // drawer specific
-      drawer: {
-        maxWidth: 270,
-        openCb: function(){
-          console.log('nlDrawer: openned')
-        },
-        closeCb: function(){
-          console.log('nlDrawer closed')
-        }
-      },
-      // refresh specific
-      refresh: {
-        defaultColor: '#aa3344', // default(inactive) color
-        activeColor: '#558844', // active color
-        callback: function(){
-          // here is just timeout to wait 5sec before ending sync animation
-          setTimeout( function(){
-            console.log( 'nlRefresh custom callback' );
-            // after doing some stuff end syncing animation
-            $nlRefresh.syncEnd();
-          }, 3000 );
-        }
-      },
-      secMenu: true
-    };
-    // initialize the framework
-    $nlFramework.init( nlOptions );     
-    $rootScope.showBannerAd = function() {
-        try {
-            console.log('Show Banner Ad');          
-			 if (AdMob) {
-				AdMob.createBanner({
-					adId : adMobId.admob_banner_key,
-					position :  AdMob.AD_POSITION.BOTTOM_CENTER,
-					adExtras: {color_bg:'transparent'},
-					autoShow : true
-				});
-			}
-        } catch (e) {
-            alert(e);
-        }       
+angular.module('underscore', [])
+.factory('_', function() {
+  return window._; // assumes underscore has already been loaded on the page
+});
+
+// angular.module is a global place for creating, registering and retrieving Angular modules
+// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
+// the 2nd parameter is an array of 'requires'
+angular.module('your_app_name', [
+  'ionic',
+  'angularMoment',
+  'your_app_name.controllers',
+  'your_app_name.directives',
+  'your_app_name.filters',
+  'your_app_name.services',
+  'your_app_name.factories',
+  'your_app_name.config',
+  'your_app_name.views',
+  'underscore',
+  'ngMap',
+  'ngResource',
+  'ngCordova',
+  'slugifier',
+//  'ionic.contrib.ui.tinderCards',
+  'youtube-embed'
+])
+
+.run(function($ionicPlatform, PushNotificationsService, $rootScope, $ionicConfig, $timeout) {
+
+  $ionicPlatform.on("deviceready", function(){
+    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+    // for form inputs)
+    if(window.cordova && window.cordova.plugins.Keyboard) {
+      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
-	
-	// Set statusbar
-	$cordovaStatusbar.overlaysWebView(false);
-	$cordovaStatusbar.styleHex('#E53241') //red  
-   
-	setTimeout( function(){
-		$cordovaSplashscreen.hide();
-	}, 6000 );
-	
-	$rootScope.showBannerAd();
-	
-    $rootScope.refresh.callback = function(){
-      // here is just timeout to wait 5sec before ending sync animation
-      setTimeout( function(){
-        console.log( 'custom callback onSync' );
-        // after doing some stuff end syncing animation
-        $rootScope.refresh.syncEnd();
-		$rootScope.selects();
-      }, 3000 );
-    };
+    if(window.StatusBar) {
+      StatusBar.styleDefault();
+    }
 
-    // If you like you can register backbutton handle 
-    $ionicPlatform.registerBackButtonAction(function () {
-      if ( !$rootScope.drawer.openned ) {
-        // thedrawer is closed - exit the app
-        navigator.app.exitApp();
-      } else {
-        // thedrawer is openned - close
-        $rootScope.drawer.hide();
-      }
-    }, 100);
-	
-	// load excel data to sqlite
-	$rootScope.loadXLSX = function (db){
-		
-		var X 	= XLSX;
-		var dbs = db;
-		
-		function to_json(workbook) {
-			var result = {};
-			workbook.SheetNames.forEach(function(sheetName) {
-				var roa = X.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
-				if(roa.length > 0){
-					result[sheetName] = roa;
-				}
-			});
-					
-			if(dbs == 'recipes'){
-				for (var i = 0; i < result.recipes.length; i++) {	
-					$rootScope.insertRecipes(result.recipes[i].ID,result.recipes[i].Menu,result.recipes[i].Category,result.recipes[i].Images,result.recipes[i].Intro,result.recipes[i].timingMenutes,result.recipes[i].Servings,result.recipes[i].Kcal);
-				}
-			}else if(dbs == 'instruction'){
-				for (var i = 0; i < result.instruction.length; i++) {	
-					$rootScope.insertInstruction(result.instruction[i].IdMenu,result.instruction[i].Title,result.instruction[i].Desc);
-				}
-			}else{
-				for (var i = 0; i < result.ingredients.length; i++) {	
-					$rootScope.insertIngredients(result.ingredients[i].IdMenu,result.ingredients[i].Composition,result.ingredients[i].Unit,result.ingredients[i].Desc);
-				}
-				$rootScope.selects();
-			}
-		}
-		
-		function process_wb(wb) {
-			var output = to_json(wb);
-			if(out.innerText === undefined) out.textContent = output;
-			else out.innerText = output;
-			if(typeof console !== 'undefined') console.log("output", new Date());
-		}
-
-		var oReq;
-		if(window.XMLHttpRequest) oReq = new XMLHttpRequest();
-		else if(window.ActiveXObject) oReq = new ActiveXObject('MSXML2.XMLHTTP.3.0');
-		else throw "XHR unavailable for your browser";
-
-		oReq.open("GET", url_xls, true);
-
-		if(typeof Uint8Array !== 'undefined') {
-			oReq.responseType = "arraybuffer";
-			oReq.onload = function(e) {
-				if(typeof console !== 'undefined') console.log("onload", new Date());
-				var arraybuffer = oReq.response;
-				var data = new Uint8Array(arraybuffer);
-				var arr = new Array();
-				for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
-				var wb = XLSX.read(arr.join(""), {type:"binary"});
-				process_wb(wb);
-			};
-		} else {
-			oReq.setRequestHeader("Accept-Charset", "x-user-defined");	
-			oReq.onreadystatechange = function() { if(oReq.readyState == 4 && oReq.status == 200) {
-				var ff = convertResponseBodyToText(oReq.responseBody);
-				//if(typeof console !== 'undefined') console.log("onload", new Date());
-				var wb = XLSX.read(ff, {type:"binary"});
-				process_wb(wb);
-			} };
-		}
-		oReq.send();
-	}
-		
-	if (window.cordova && window.SQLitePlugin) {
-		db = $cordovaSQLite.openDB( 'recipeDB24.db', 1 );
-	} else {
-		db = window.openDatabase('recipeDB24', '1.0', 'recipeDB24.db', 100 * 1024 * 1024);
-	}
-
-	$cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS recipes (id integer primary key, menu text, category text, img text, intro text, times integer, servings integer, kcal integer, favorites text)").then(function(res) {
-		$cordovaSQLite.execute(db, "SELECT id FROM recipes").then(function(res) {
-			if (res.rows.length == 0) {
-				$rootScope.loading();
-				$rootScope.loadXLSX("recipes");
-					$cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS instruction (IDrecipes integer, title text, description text)").then(function(res) {
-						$cordovaSQLite.execute(db, "SELECT IDrecipes FROM instruction").then(function(res) {
-							if (res.rows.length == 0) {
-								$rootScope.loadXLSX("instruction");
-									$cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS ingredients (IDrecipe integer, composition text, unit text, desc text, cart text)").then(function(res) {
-										$cordovaSQLite.execute(db, "SELECT IDrecipe FROM ingredients").then(function(res) {
-											if (res.rows.length == 0) {
-												$rootScope.loadXLSX("ingredients");
-												$rootScope.loadingHide(600);
-											}
-										});					
-									});
-							}
-						});					
-					});
-			}else{
-				$rootScope.selects();
-			}
-		});				
-	});		
-	
-	$rootScope.insertRecipes = function(id, menu, category, img, intro, times, servings, kcal) {
-		var query = "INSERT INTO recipes (id, menu, category, img, intro, times, servings, kcal) VALUES (?,?,?,?,?,?,?,?)";
-		$cordovaSQLite.execute(db, query, [id, menu, category, img, intro, times, servings, kcal]).then(function(res) {
-			}, function (err) {
-			   //alert(err);
-		});
-	};	
-
-	$rootScope.insertInstruction = function(IDrecipes, title, description) {
-		var query = "INSERT INTO instruction (IDrecipes, title, description) VALUES (?,?,?)";
-		$cordovaSQLite.execute(db, query, [IDrecipes, title, description]).then(function(res) {
-			}, function (err) {
-			   //alert(err);
-		});
-	};	
-
-	$rootScope.insertIngredients = function(IDrecipe, composition, unit, desc) {
-		var query = "INSERT INTO ingredients (IDrecipe, composition, unit, desc) VALUES (?,?,?,?)";
-		$cordovaSQLite.execute(db, query, [IDrecipe, composition, unit, desc]).then(function(res) {
-			}, function (err) {
-			   //alert(err);
-		});
-	};
-
-	// Loadin function
-	$rootScope.loading = function() {
-        $ionicLoading.show({
-            template: '<div class="loader"><svg class="circular"><circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div>'
-		});
-	}
-	
-	$rootScope.loadingHide = function(time) {
-		$timeout(function() {
-            $ionicLoading.hide();
-        }, time);
-	}
-	
-	$rootScope.selectDrawer = function() {
-		// Execute SELECT statement to load message from database.
-		$cordovaSQLite.execute(db, "SELECT category FROM recipes GROUP BY category").then(function(res) {
-			if (res.rows.length > 0) {
-				$rootScope.requestDataDrawer = [];
-				
-				for(var i = 0; i < res.rows.length; i++) {
-					$rootScope.requestDataDrawer.push({category: res.rows.item(i).category});
-				}
-			}
-		},
-		function(error) {
-			//$scope.statusMessage = "Error on loading: " + error.message;
-				}
-		);				
-	}
-
-	setTimeout( function(){
-		$rootScope.selectDrawer();
-	}, 1000);
-	
+    PushNotificationsService.register();
   });
+
+  // This fixes transitions for transparent background views
+  $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
+    if(toState.name.indexOf('auth.walkthrough') > -1)
+    {
+      // set transitions to android to avoid weird visual effect in the walkthrough transitions
+      $timeout(function(){
+        $ionicConfig.views.transition('android');
+        $ionicConfig.views.swipeBackEnabled(false);
+      	console.log("setting transition to android and disabling swipe back");
+      }, 0);
+    }
+  });
+  $rootScope.$on("$stateChangeSuccess", function(event, toState, toParams, fromState, fromParams){
+    if(toState.name.indexOf('app.feeds-categories') > -1)
+    {
+      // Restore platform default transition. We are just hardcoding android transitions to auth views.
+      $ionicConfig.views.transition('platform');
+      // If it's ios, then enable swipe back again
+      if(ionic.Platform.isIOS())
+      {
+        $ionicConfig.views.swipeBackEnabled(true);
+      }
+    	console.log("enabling swipe back and restoring transition to platform default", $ionicConfig.views.transition());
+    }
+  });
+
+  $ionicPlatform.on("resume", function(){
+    PushNotificationsService.register();
+  });
+
 })
 
-// just some routes to show some content
-.config(function($routeProvider, $ionicFilterBarConfigProvider, $cordovaAppRateProvider, $ionicConfigProvider) {
-    $routeProvider
-    .when('/app', {
-	  cache: false,
-      templateUrl: 'views/app.html',
-      controller: 'AppCtrl'
-    }).
-    otherwise({
-      redirectTo: '/app'
-    });
 
-	var jsScrolling = (ionic.Platform.isAndroid() ) ? false : true;
-	$ionicConfigProvider.scrolling.jsScrolling(jsScrolling);
-	
-	document.addEventListener("deviceready", function () {
-		$cordovaAppRateProvider.setPreferences(prefs);
-	}, false);
- 
-	// Setting header filter
-    $ionicFilterBarConfigProvider.theme('assertive');
-    $ionicFilterBarConfigProvider.clear('ion-close');
-    $ionicFilterBarConfigProvider.search('ion-search');
-    $ionicFilterBarConfigProvider.backdrop(true);
-    $ionicFilterBarConfigProvider.transition('vertical');
-    $ionicFilterBarConfigProvider.placeholder('Filter');
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+  $stateProvider
+
+  //INTRO
+  .state('auth', {
+    url: "/auth",
+    templateUrl: "views/auth/auth.html",
+    abstract: true,
+    controller: 'AuthCtrl'
+  })
+
+  .state('auth.walkthrough', {
+    url: '/walkthrough',
+    templateUrl: "views/auth/walkthrough.html"
+  })
+
+//  .state('auth.login', {
+//    url: '/login',
+//    templateUrl: "views/auth/login.html",
+//    controller: 'LoginCtrl'
+//  })
+
+//  .state('auth.signup', {
+//    url: '/signup',
+//    templateUrl: "views/auth/signup.html",
+//    controller: 'SignupCtrl'
+//  })
+
+//  .state('auth.forgot-password', {
+//    url: "/forgot-password",
+//    templateUrl: "views/auth/forgot-password.html",
+//    controller: 'ForgotPasswordCtrl'
+//  })
+
+  .state('app', {
+    url: "/app",
+    abstract: true,
+    templateUrl: "views/app/side-menu.html",
+    controller: 'AppCtrl'
+  })
+
+  //MISCELLANEOUS
+//  .state('app.miscellaneous', {
+//    url: "/miscellaneous",
+//    views: {
+//      'menuContent': {
+//        templateUrl: "views/app/miscellaneous/miscellaneous.html"
+//      }
+//    }
+//  })
+
+//  .state('app.maps', {
+//    url: "/miscellaneous/maps",
+//    views: {
+//      'menuContent': {
+//        templateUrl: "views/app/miscellaneous/maps.html",
+//        controller: 'MapsCtrl'
+//      }
+//    }
+//  })
+
+//  .state('app.image-picker', {
+//    url: "/miscellaneous/image-picker",
+//    views: {
+//      'menuContent': {
+//        templateUrl: "views/app/miscellaneous/image-picker.html",
+//        controller: 'ImagePickerCtrl'
+//      }
+//    }
+//  })
+
+  //LAYOUTS
+//  .state('app.layouts', {
+//    url: "/layouts",
+//    views: {
+//      'menuContent': {
+//        templateUrl: "views/app/layouts/layouts.html"
+//      }
+//    }
+//  })
+
+//  .state('app.tinder-cards', {
+//    url: "/layouts/tinder-cards",
+//    views: {
+//      'menuContent': {
+//        templateUrl: "views/app/layouts/tinder-cards.html",
+//        controller: 'TinderCardsCtrl'
+//      }
+//    }
+//  })
+
+//  .state('app.slider', {
+//    url: "/layouts/slider",
+//    views: {
+//      'menuContent': {
+//        templateUrl: "views/app/layouts/slider.html"
+//      }
+//    }
+//  })
+
+  //FEEDS
+  .state('app.feeds-categories', {
+    url: "/feeds-categories",
+    views: {
+      'menuContent': {
+        templateUrl: "views/app/feeds/feeds-categories.html",
+        controller: 'FeedsCategoriesCtrl'
+      }
+    }
+  })
+
+  .state('app.category-feeds', {
+    url: "/category-feeds/:categoryId",
+    views: {
+      'menuContent': {
+        templateUrl: "views/app/feeds/category-feeds.html",
+        controller: 'CategoryFeedsCtrl'
+      }
+    }
+  })
+
+  .state('app.feed-entries', {
+    url: "/feed-entries/:categoryId/:sourceId",
+    views: {
+      'menuContent': {
+        templateUrl: "views/app/feeds/feed-entries.html",
+        controller: 'FeedEntriesCtrl'
+      }
+    }
+  })
+
+  //WORDPRESS
+  .state('app.wordpress', {
+    url: "/wordpress",
+    views: {
+      'menuContent': {
+        templateUrl: "views/app/wordpress/wordpress.html",
+        controller: 'WordpressCtrl'
+      }
+    }
+  })
+  
+  //WORDPRESS2
+  .state('app.wordpress2', {
+    url: "/wordpress",
+    views: {
+      'menuContent': {
+        templateUrl: "views/app/wordpress/wordpress2.html",
+        controller: 'WordpressCtrl2'
+      }
+    }
+  })  
+
+  .state('app.post', {
+    url: "/wordpress/:postId",
+    views: {
+      'menuContent': {
+        templateUrl: "views/app/wordpress/wordpress_post.html",
+        controller: 'WordpressPostCtrl'
+      }
+    },
+    resolve: {
+      post_data: function(PostService, $ionicLoading, $stateParams) {
+        $ionicLoading.show({
+      		template: 'Loading post ...'
+      	});
+
+        var postId = $stateParams.postId;
+        return PostService.getPost(postId);
+      }
+    }
+  })
+
+  //OTHERS
+//  .state('app.settings', {
+//    url: "/settings",
+//    views: {
+//      'menuContent': {
+//        templateUrl: "views/app/settings.html",
+//        controller: 'SettingsCtrl'
+//      }
+//    }
+//  })
+
+//  .state('app.forms', {
+//    url: "/forms",
+//    views: {
+//      'menuContent': {
+//        templateUrl: "views/app/forms.html"
+//      }
+//    }
+//  })
+
+  .state('app.profile', {
+    url: "/profile",
+    views: {
+      'menuContent': {
+        templateUrl: "views/app/profile.html",
+        controller: "ProfileCtrl"
+      }
+    }
+  })
+
+  .state('app.bookmarks', {
+    url: "/bookmarks",
+    views: {
+      'menuContent': {
+        templateUrl: "views/app/bookmarks.html",
+        controller: 'BookMarksCtrl'
+      }
+    }
+  })
+
+;
+
+  // if none of the above states are matched, use this as the fallback
+  $urlRouterProvider.otherwise('/auth/walkthrough');
 });

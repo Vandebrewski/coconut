@@ -97,18 +97,15 @@
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
     </platform>
 
+<gap:plugin name="org.apache.cordova.splashscreen" />
 
+<preference name="FadeSplashScreen" value="true" />  
+<preference name="AutoHideSplashScreen" value="true" />
+ <preference name="SplashScreenDelay" value="3000" />
+ <preference name="FadeSplashScreenDuration" value="750"/>
+<preference name="ShowSplashScreenSpinner" value="true"/>
+<preference name="disable-cursor" value="false" /> 
 
-  <plugin name="cordova-plugin-splashscreen" spec="3.0.0"/>
-
-    <preference name="AutoHideSplashScreen" value="false" /> 
-	<preference name="auto-hide-splash-screen" value="false" />
-	<preference name="ShowSplashScreen" value="false" /> 
-	<preference name="FadeSplashScreen" value="false"/> 
-	<preference name="ShowSplashScreenSpinner" value="false"/> 
-   <preference name="disable-cursor" value="false" /> 
-   <preference name="android-installLocation" value="auto" /> 
-   <preference name="StatusBarOverlaysWebView" value="true" /> 
  
 
     <icon src="resources/android/icon/drawable-xhdpi-icon.png" />

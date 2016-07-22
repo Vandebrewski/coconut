@@ -32,6 +32,16 @@
     <script src="js/factories.js"></script>
     <script src="js/views.js"></script>
     <script src="js/config.js"></script>
+    
+      <!-- PUT THIS CODE UNDER THE MICROLOADER -->
+	<script type="text/javascript" charset="utf-8">
+        document.addEventListener('deviceready', function() {
+            setTimeout(function() {
+              navigator.splashscreen.hide();
+           }, 50);
+        });
+</script>  
+    
   </head>
   <body ng-app="your_app_name">
     <ion-nav-view></ion-nav-view>

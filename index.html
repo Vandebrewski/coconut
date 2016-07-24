@@ -33,46 +33,14 @@
     <script src="js/views.js"></script>
     <script src="js/config.js"></script>
     
-      <!-- PUT THIS CODE UNDER THE MICROLOADER -->
+    <!-- PUT THIS CODE UNDER THE MICROLOADER -->
 	<script type="text/javascript" charset="utf-8">
         document.addEventListener('deviceready', function() {
             setTimeout(function() {
               navigator.splashscreen.hide();
            }, 50);
         });
-        
-var admobid = {};
-if( /(android)/i.test(navigator.userAgent) ) { 
-    admobid = { // for Android
-        banner: 'ca-app-pub-6869992474017983/9375997553',
-        interstitial: 'ca-app-pub-6869992474017983/1657046752'
-    };
-} else if(/(ipod|iphone|ipad)/i.test(navigator.userAgent)) {
-    admobid = { // for iOS
-        banner: 'ca-app-pub-5984477348101952/1300709015',
-        interstitial: 'ca-app-pub-5984477348101952~8823975818'
-    };
-} else {
-    admobid = { // for Windows Phone
-        banner: 'ca-app-pub-6869992474017983/8878394753',
-        interstitial: 'ca-app-pub-6869992474017983/1355127956'
-    };
-}
-
-function initApp() {
-    if (AdMob) {
-        AdMob.createBanner({
-            adId : admobid.banner,
-            position : AdMob.AD_POSITION.BOTTOM_CENTER,
-            autoShow : true
-        });
-    }
-}
-
-document.addEventListener('deviceready', initApp, false);        
-        
-        
-</script>  
+</script>
     
   </head>
   <body ng-app="your_app_name">

@@ -10,7 +10,7 @@
   <name>Coconut Oil</name>
 
   <description>
-      Coconut Oil Uses / MCT Oil: Possible Dimentia & Alzheimers Treatment, Recipes, Beauty and more
+      Uses and Benefits of Coconut Oil
   </description>
 
   <author href="http://new-impulse.com" email="info@new-impulse.com">
@@ -48,7 +48,11 @@
     <preference name="DisallowOverscroll" value="true" />
     <preference name="BackupWebStorage" value="none" />
 
-
+    <preference name="SplashScreen" value="screen"/>
+    <preference name="SplashScreenDelay" value="3000"/>
+    <feature name="StatusBar">
+        <param name="ios-package" onload="true" value="CDVStatusBar" />
+    </feature>
       
   
 	
@@ -100,8 +104,7 @@
 <preference name="ShowSplashScreenSpinner" value="false"/>
 <preference name="disable-cursor" value="false" /> 
 
-<!-- <gap:plugin name="cordova-plugin-admobpro" spec="^2.8.3" /> -->
-<!-- <gap:plugin name="cordova-plugin-admobpro" source="npm" /> -->
+<gap:plugin name="cordova-plugin-admobpro" spec="^2.8.3" />
 
 
 

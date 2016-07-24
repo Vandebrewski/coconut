@@ -105,7 +105,7 @@
 <preference name="disable-cursor" value="false" /> 
 
 <!-- <gap:plugin name="cordova-plugin-admobpro" spec="^2.8.3" /> -->
-<gap:plugin name="cordova-plugin-admobpro" source="npm" />
+<!-- <gap:plugin name="cordova-plugin-admobpro" source="npm" /> -->
 
 
 

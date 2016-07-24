@@ -48,11 +48,13 @@
     <preference name="DisallowOverscroll" value="true" />
     <preference name="BackupWebStorage" value="none" />
 
+<!-->
     <preference name="SplashScreen" value="screen"/>
     <preference name="SplashScreenDelay" value="3000"/>
     <feature name="StatusBar">
         <param name="ios-package" onload="true" value="CDVStatusBar" />
     </feature>
+-->
       
   
 	
@@ -103,7 +105,6 @@
 <preference name="FadeSplashScreenDuration" value="0.5" />
 <preference name="ShowSplashScreenSpinner" value="false"/>
 <preference name="disable-cursor" value="false" /> 
-
 
 <gap:plugin name="cordova-plugin-admobpro" source="npm" />
 

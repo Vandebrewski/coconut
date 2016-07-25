@@ -90,7 +90,7 @@ angular.module('your_app_name.factories', [])
       bgColor: 'black', // color name, or '#RRGGBB'
       // x: integer,		// valid when set position to 0 / POS_XY
       // y: integer,		// valid when set position to 0 / POS_XY
-      isTesting: true, // set to true, to receiving test ad for testing purpose
+      isTesting: false, // set to true, to receiving test ad for testing purpose
        autoShow: true // auto show interstitial ad when loaded, set to false if prepare/show
     };
     var admobid = {};
@@ -107,7 +107,7 @@ angular.module('your_app_name.factories', [])
     {
       admobid = { // for iOS
         banner: 'ca-app-pub-5984477348101952/1300709015',
-        interstitial: 'ca-app-pub-6869992474017983/7563979554'
+        interstitial: 'ca-app-pub-5984477348101952/3730968212'
       };
     }
 

@@ -1,0 +1,57 @@
+<ion-side-menus enable-menu-with-back-views="false">
+  <ion-side-menu-content class="post-size-14px">
+    <ion-nav-bar class="bar app-top-bar">
+      <ion-nav-back-button>
+      </ion-nav-back-button>
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        </button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-nav-view name="menuContent"></ion-nav-view>
+  </ion-side-menu-content>
+
+  <ion-side-menu side="left" class="main-menu" expose-aside-when="large">
+    <ion-content>
+      <ion-list>
+        <ion-item class="heading-item item item-avatar" nav-clear menu-close ui-sref="app.profile">
+          <div class="user-image-container">
+            <pre-img ratio="_1_1" helper-class="rounded-image">
+              <img class="user-image" ng-src="img/icon.png" spinner-on-load>
+          	</pre-img>
+          </div>
+          <h2 class="greeting">Coconut Oil</h2>
+          <p class="message">Uses & Benefits</p>
+        </ion-item>
+       
+        <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.wordpress">
+          <i class="icon ion-medkit"></i>
+          <h2 class="menu-text">Health / Recipes</h2>
+        </ion-item>
+       
+        <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.wordpress2">
+          <i class="icon ion-wand"></i>
+          <h2 class="menu-text">Beauty</h2>
+        </ion-item>
+        
+                <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.feeds-categories">
+          <i class="icon ion-ios-flask"></i>
+          <h2 class="menu-text">Science</h2>
+        </ion-item>
+        
+                <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.bookmarks">
+          <i class="icon ion-bookmark"></i>
+          <h2 class="menu-text">Saved for later</h2>
+        </ion-item>
+     
+        <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.profile">
+          <i class="icon ion-android-warning"></i>
+          <h2 class="menu-text">Disclaimer</h2>
+        </ion-item>
+        
+ 
+
+    </ion-list>
+    </ion-content>
+  </ion-side-menu>
+</ion-side-menus>

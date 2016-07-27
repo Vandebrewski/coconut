@@ -38,6 +38,8 @@ angular.module('your_app_name.controllers', [])
 		// Show the action sheet
 		var hideSheet = $ionicActionSheet.show({
 			//Here you can add some more buttons
+			
+			
 			buttons: [
 				{ text: 'Show Banner' },
 				{ text: 'Show Interstitial' }

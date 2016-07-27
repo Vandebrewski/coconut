@@ -117,14 +117,14 @@ angular.module('your_app_name', [
   })
 
   //MISCELLANEOUS
-  .state('app.miscellaneous', {
-    url: "/miscellaneous",
-    views: {
-      'menuContent': {
-        templateUrl: "views/app/miscellaneous/miscellaneous.html"
-      }
-    }
-  })
+//  .state('app.miscellaneous', {
+//    url: "/miscellaneous",
+//    views: {
+//      'menuContent': {
+//        templateUrl: "views/app/miscellaneous/miscellaneous.html"
+//      }
+//    }
+//  })
 
 //  .state('app.maps', {
 //    url: "/miscellaneous/maps",

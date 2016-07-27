@@ -32,7 +32,6 @@ angular.module('your_app_name', [
   $ionicPlatform.on("deviceready", function(){
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
-    AdMob.showBanner();
     if(window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
@@ -72,6 +71,7 @@ angular.module('your_app_name', [
 
   $ionicPlatform.on("resume", function(){
     PushNotificationsService.register();
+    AdMob.showBanner();
   });
 
 })
@@ -80,6 +80,8 @@ angular.module('your_app_name', [
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
   $stateProvider
 
+  
+  
   //INTRO
   .state('auth', {
     url: "/auth",

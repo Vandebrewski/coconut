@@ -40,6 +40,7 @@ angular.module('your_app_name', [
     }
 
     PushNotificationsService.register();
+    AdMob.showBanner();
   });
 
   // This fixes transitions for transparent background views
@@ -71,7 +72,7 @@ angular.module('your_app_name', [
 
   $ionicPlatform.on("resume", function(){
     PushNotificationsService.register();
-    AdMob.showBanner();
+    
   });
 
 })

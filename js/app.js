@@ -63,6 +63,7 @@ angular.module('your_app_name', [
       if(ionic.Platform.isIOS())
       {
         $ionicConfig.views.swipeBackEnabled(true);
+        AdMob.showBanner();
       }
     	console.log("enabling swipe back and restoring transition to platform default", $ionicConfig.views.transition());
     }

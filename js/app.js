@@ -40,11 +40,12 @@ angular.module('your_app_name', [
     }
 
     PushNotificationsService.register();
-    AdMob.showBanner();
+    
   });
 
   // This fixes transitions for transparent background views
   $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
+    AdMob.showBanner();
     if(toState.name.indexOf('auth.walkthrough') > -1)
     {
       // set transitions to android to avoid weird visual effect in the walkthrough transitions

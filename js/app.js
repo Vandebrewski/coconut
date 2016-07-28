@@ -37,6 +37,7 @@ angular.module('your_app_name', [
     }
     if(window.StatusBar) {
       StatusBar.styleDefault();
+      AdMob.showBanner();
     }
 
     PushNotificationsService.register();
@@ -49,7 +50,7 @@ angular.module('your_app_name', [
     if(toState.name.indexOf('auth.walkthrough') > -1)
     {
       // set transitions to android to avoid weird visual effect in the walkthrough transitions
-      AdMob.showBanner();
+      
       $timeout(function(){
         $ionicConfig.views.transition('android');
         $ionicConfig.views.swipeBackEnabled(false);

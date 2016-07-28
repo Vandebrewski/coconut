@@ -90,7 +90,7 @@ angular.module('your_app_name.factories', [])
       bgColor: 'black', // color name, or '#RRGGBB'
       // x: integer,		// valid when set position to 0 / POS_XY
       // y: integer,		// valid when set position to 0 / POS_XY
-      isTesting: false, // set to true, to receiving test ad for testing purpose 
+      isTesting: true, // set to true, to receiving test ad for testing purpose 
       autoShow: true // auto show interstitial ad when loaded, set to false if prepare/show
     };
     var admobid = {};
@@ -117,7 +117,7 @@ angular.module('your_app_name.factories', [])
     // 		- (for example at the beginning of a game level)
     admob.prepareInterstitial({
       adId: admobid.interstitial,
-      autoShow: false,
+      autoShow: true,
       success: function(){
         console.log('interstitial prepared');
       },

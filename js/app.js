@@ -43,7 +43,7 @@ angular.module('your_app_name', [
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
     
-    AdMob.showBanner();
+    // AdMob.showBanner();  hier plaatsen werkt ook niet
     
     if(window.StatusBar) {
       StatusBar.styleDefault();
@@ -58,6 +58,8 @@ angular.module('your_app_name', [
 
   // This fixes transitions for transparent background views
   $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
+   
+   AdMob.showBanner();
     
     if(toState.name.indexOf('auth.walkthrough') > -1)
     {

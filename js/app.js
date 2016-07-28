@@ -59,7 +59,7 @@ angular.module('your_app_name', [
   // This fixes transitions for transparent background views
   $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
    
-   AdMob.showBanner();
+   // AdMob.showBanner(); // begint bovenaan en na een paar clicks onderaan
     
     if(toState.name.indexOf('auth.walkthrough') > -1)
     {
@@ -72,6 +72,24 @@ angular.module('your_app_name', [
       }, 0);
     }
   });
+  
+  
+    $rootScope.$on("$stateChangeSuccess", function(event, toState, toParams, fromState, fromParams){
+    if(toState.name.indexOf('auth.walkthrough') > -1)
+    {
+      // Restore platform default transition. We are just hardcoding android transitions to auth views.
+      $ionicConfig.views.transition('platform');
+      // If it's ios, then enable swipe back again
+      if(ionic.Platform.isIOS())
+      {
+//        $ionicConfig.views.swipeBackEnabled(true);
+        AdMob.showBanner();
+      }
+    	console.log("test", $ionicConfig.views.transition());
+    }
+  });
+  
+  
   $rootScope.$on("$stateChangeSuccess", function(event, toState, toParams, fromState, fromParams){
     if(toState.name.indexOf('app.feeds-categories') > -1)
     {

@@ -37,7 +37,7 @@ angular.module('your_app_name', [
   	
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
-    AdMob.showBanner(); 
+    // AdMob.showBanner(); laat banner altijd bovenaan zien
     if(window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
@@ -46,7 +46,7 @@ angular.module('your_app_name', [
       StatusBar.styleDefault();
      // AdMob.showBanner();   hier plaatsen werkt niet
     }
-
+	AdMob.showBanner();
     PushNotificationsService.register();
     
   });

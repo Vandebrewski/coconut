@@ -29,7 +29,12 @@ angular.module('your_app_name', [
 
 .run(function($ionicPlatform, PushNotificationsService, $rootScope, $ionicConfig, $timeout) {
 
+
+
   $ionicPlatform.on("deviceready", function(){
+  	
+  	AdMob.showBanner(admob.BannerSize.BANNER, admob.Position.BOTTOM_APP);
+  	
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if(window.cordova && window.cordova.plugins.Keyboard) {

@@ -33,7 +33,7 @@ angular.module('your_app_name', [
 
   $ionicPlatform.on("deviceready", function(){
   	
-  	AdMob.showBanner();
+  	admob.showBanner(admob.BannerSize.BANNER, admob.Position.BOTTOM_APP);
   	
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)

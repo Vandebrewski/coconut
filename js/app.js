@@ -53,7 +53,7 @@ angular.module('your_app_name', [
       // --------------------------- Bas ----------------------------
   $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
     
-    if(toState.name.indexOf('auth.walkthrough') > -1)
+    if(toState.name.indexOf('auth.walkthrough') < -1)
     {
       AdMob.showBanner();
 

@@ -33,7 +33,7 @@ angular.module('your_app_name', [
 
   $ionicPlatform.on("deviceready", function(){
   	
-  	admob.showBanner(admob.BannerSize.BANNER, admob.Position.BOTTOM_APP);
+  	
   	
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -48,6 +48,21 @@ angular.module('your_app_name', [
     PushNotificationsService.register();
     
   });
+  
+  
+      // --------------------------- Bas ----------------------------
+  $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
+    
+    if(toState.name.indexOf('auth.walkthrough') > -1)
+    {
+      AdMob.showBanner();
+
+    }
+  });
+    // --------------------------- // Bas ---------------------------- 
+    
+    
+    
 
   // This fixes transitions for transparent background views
   $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){

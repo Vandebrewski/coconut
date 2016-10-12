@@ -118,7 +118,7 @@
 
 <gap:plugin name="cordova-plugin-admobpro" source="npm" />
 
-<plugin name="cordova-plugin-inappbrowser" source="npm"/
+<plugin name="cordova-plugin-inappbrowser" source="npm"/>
 
  
 

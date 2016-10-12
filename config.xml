@@ -24,6 +24,7 @@
   <preference name="fullscreen" value="true" />
   
   
+  
   <feature name="InAppBrowser">
        <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
        <param name="ios-package" value="CDVInAppBrowser" />
@@ -117,7 +118,7 @@
 
 <gap:plugin name="cordova-plugin-admobpro" source="npm" />
 
-
+<plugin name="org.li8.inappbrowser" spec="0.1" source="pgb" />
 
  
 

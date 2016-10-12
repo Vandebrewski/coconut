@@ -25,10 +25,7 @@
   
   
   
-  <feature name="InAppBrowser">
-       <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
-       <param name="ios-package" value="CDVInAppBrowser" />
-    </feature>
+
 
   <!-- iOS only -->
   <preference name="target-device" value="universal" />
@@ -118,7 +115,8 @@
 
 <gap:plugin name="cordova-plugin-admobpro" source="npm" />
 
-<plugin name="cordova-plugin-inappbrowser" source="npm"/>
+<gap:plugin name="cordova-plugin-inappbrowser" source="npm" />
+
 
  
 

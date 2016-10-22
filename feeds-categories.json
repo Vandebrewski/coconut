@@ -1,198 +1,107 @@
 [
 	{
-		"id":"news",
-		"title":"News",
-		"image":"img/feeds/news.jpg",
+		"id":"health",
+		"title":"Health",
+		"image":"img/feeds/health.jpg",
 		"feed_sources":[
 			{
-				"id":"bbc",
-				"title":"PubMed",
-				"description":"Coconut oil health",
-				"image":"img/feeds/logos/bbc.jpg",
-				"url":"http://www.ncbi.nlm.nih.gov/entrez/eutils/erss.cgi?rss_guid=1P3PNIbOiNPiDNN2DKlBlA5wocL0qQHnE4hvK7orRR70rioY1g"
-			},
-			{
-				"id":"reuters",
-				"title":"PubMed",
-				"description":"Coconut oil alzheimers",
-				"image":"img/feeds/logos/reuters.jpg",
+				"id":"coconut-oil-alzheimers",
+				"title":"Coconut oil Alzheimers",
+				"description":"PubMed",
+				"image":"img/feeds/logos/ncbi.png",
 				"url":"http://www.ncbi.nlm.nih.gov/entrez/eutils/erss.cgi?rss_guid=1vm7YKsZZUUqnjhcUt9i_fgg5pkKHsqsLyt12XL2QpE6ONVE1j"
 			},
 			{
-				"id":"cnn",
-				"title":"PubMed",
-				"description":"Coconut oil cholesterol",
-				"image":"img/feeds/logos/cnn.jpg",
+				"id":"coconut-oil-cholesterol",
+				"title":"Coconut oil Cholesterol",
+				"description":"PubMed",
+				"image":"img/feeds/logos/ncbi.png",
 				"url":"http://www.ncbi.nlm.nih.gov/entrez/eutils/erss.cgi?rss_guid=1xwHDH4bpEYf6ZLy3OE-HM3x8cocKkzdB4ibE00UZL3i5QakJ5"
 			},
 			{
-				"id":"the-guardian",
-				"title":"PubMed",
-				"description":"Coconut oil weight loss",
-				"image":"img/feeds/logos/the-guardian.jpg",
+				"id":"coconut-oil-weight-loss",
+				"title":"Coconut oil Weight loss",
+				"description":"PubMed",
+				"image":"img/feeds/logos/ncbi.png",
 				"url":"http://www.ncbi.nlm.nih.gov/entrez/eutils/erss.cgi?rss_guid=14EXV6AaFU88trJbNzBgwqENz4EgNVYCNFpXFCtqj5R2I9_kWq"
-			}
-		]
-	},
-	{
-		"id":"sports",
-		"title":"Sports",
-		"image":"img/feeds/sports.jpg",
-		"feed_sources":[
+			},
 			{
-				"id":"the-guardian",
-				"title":"The Guardian",
-				"description":"Coconut oil health",
-				"image":"img/feeds/logos/the-guardian.jpg",
+				"id":"coconut-oil-health",
+				"title":"Coconut oil Health",
+				"description":"PubMed",
+				"image":"img/feeds/logos/ncbi.png",
 				"url":"http://www.ncbi.nlm.nih.gov/entrez/eutils/erss.cgi?rss_guid=1P3PNIbOiNPiDNN2DKlBlA5wocL0qQHnE4hvK7orRR70rioY1g"
 			},
 			{
-				"id":"bbc",
-				"title":"BBC",
-				"description":"Coconut oil alzheimers",
-				"image":"img/feeds/logos/bbc.jpg",
-				"url":"http://www.ncbi.nlm.nih.gov/entrez/eutils/erss.cgi?rss_guid=1vm7YKsZZUUqnjhcUt9i_fgg5pkKHsqsLyt12XL2QpE6ONVE1j"
+				"id":"coconut-oil-ketosis",
+				"title":"Coconut oil Ketosis",
+				"description":"PubMed",
+				"image":"img/feeds/logos/ncbi.png",
+				"url":"https://www.ncbi.nlm.nih.gov/entrez/eutils/erss.cgi?rss_guid=18kVvJQ-rxkybnbWQWKZIA-Yv___lPxKBv8yAOXnRWHqTBI59B"
 			},
 			{
-				"id":"fox-sports",
-				"title":"FOX Sports",
-				"description":"Coconut oil cholesterol",
-				"image":"img/feeds/logos/fox-sports.jpg",
-				"url":"http://www.ncbi.nlm.nih.gov/entrez/eutils/erss.cgi?rss_guid=1xwHDH4bpEYf6ZLy3OE-HM3x8cocKkzdB4ibE00UZL3i5QakJ5"
+				"id":"coconut-oil-cooking",
+				"title":"Coconut oil Cooking",
+				"description":"PubMed",
+				"image":"img/feeds/logos/ncbi.png",
+				"url":"https://www.ncbi.nlm.nih.gov/entrez/eutils/erss.cgi?rss_guid=1t1-LNQP8bJlceFr09rBilcudlTftBn8M4Dy7EUicEIsFj2E0b"
 			},
 			{
-				"id":"espn",
-				"title":"ESPN",
-				"description":"Coconut oil weight loss",
-				"image":"img/feeds/logos/espn.jpg",
+				"id":"coconut-oil-metabolism",
+				"title":"Coconut oil Metabolism",
+				"description":"PubMed",
+				"image":"img/feeds/logos/ncbi.png",
+				"url":"https://www.ncbi.nlm.nih.gov/entrez/eutils/erss.cgi?rss_guid=1V7FV1QUbN6VMTf4HWRTik2hKkKOhNNt5N9Pa7u1n0Xn16pgfP"
+			}
+		]
+	},
+	{
+		"id":"beauty",
+		"title":"Beauty",
+		"image":"img/feeds/beauty.jpg",
+		"feed_sources":[
+			{
+				"id":"coconut-oil-hair-loss",
+				"title":"Coconut oil Hair loss",
+				"description":"PubMed",
+				"image":"img/feeds/logos/ncbi.png",
+				"url":"https://www.ncbi.nlm.nih.gov/entrez/eutils/erss.cgi?rss_guid=1nuSI-wT8udzHedCc5RNlPovvYHM-eV4HobePXucWYZ1nqoYMz"
+			},
+			{
+				"id":"Coconut-oil-skin",
+				"title":"Coconut oil Skin",
+				"description":"PubMed",
+				"image":"img/feeds/logos/ncbi.png",
+				"url":"https://www.ncbi.nlm.nih.gov/entrez/eutils/erss.cgi?rss_guid=1t5NJfajTfIsAZrCCyNo4YIHxXDWI5LWOL2fyooRKDAbx_Bsga"
+			},
+			{
+				"id":"coconut-oil-teeth",
+				"title":"Coconut oil Teeth",
+				"description":"PubMed",
+				"image":"img/feeds/logos/ncbi.png",
+				"url":"https://www.ncbi.nlm.nih.gov/entrez/eutils/erss.cgi?rss_guid=1XUiT2_TWJ-A22XwnBrUDXBdTJNgBB8zIUy5ZTreEsl_c-LA6Q"
+			},
+			{
+				"id":"coconut-oil-weight-loss",
+				"title":"Coconut oil Weight loss",
+				"description":"PubMed",
+				"image":"img/feeds/logos/ncbi.png",
 				"url":"http://www.ncbi.nlm.nih.gov/entrez/eutils/erss.cgi?rss_guid=14EXV6AaFU88trJbNzBgwqENz4EgNVYCNFpXFCtqj5R2I9_kWq"
-			}
-		]
-	},
-	{
-		"id":"business",
-		"title":"Business",
-		"image":"img/feeds/business.jpg",
-		"feed_sources":[
-			{
-				"id":"forbes",
-				"title":"Forbes",
-				"description":"Forbes - Business",
-				"image":"img/feeds/logos/forbes.jpg",
-				"url":"http://www.forbes.com/business/feed/"
 			},
 			{
-				"id":"reuters",
-				"title":"Reuters",
-				"description":"Reuters.com is your source for breaking news, business, financial and investing news, including personal finance and stocks. Reuters is the leading global provider of news, financial information and technology solutions to the world's media, financial institutions, businesses and individuals.",
-				"image":"img/feeds/logos/reuters.jpg",
-				"url":"http://feeds.reuters.com/reuters/businessNews"
+				"id":"coconut-oil-metabolism",
+				"title":"Coconut oil Metabolism",
+				"description":"PubMed",
+				"image":"img/feeds/logos/ncbi.png",
+				"url":"https://www.ncbi.nlm.nih.gov/entrez/eutils/erss.cgi?rss_guid=1V7FV1QUbN6VMTf4HWRTik2hKkKOhNNt5N9Pa7u1n0Xn16pgfP"
 			},
 			{
-				"id":"the-economist",
-				"title":"The Economist",
-				"description":"The Economist business and finance",
-				"image":"img/feeds/logos/the-economist.jpg",
-				"url":"https://www.economist.com/sections/business-finance/rss.xml"
-			},
-			{
-				"id":"inc",
-				"title":"Inc.",
-				"description":"Advice for founders of start-ups and start-up entrepreneurs on writing a business plan, running a home-based business, naming a start-up business, how to incorporate, financing a start-up, buying a small business, and starting a franchise.",
-				"image":"img/feeds/logos/inc.jpg",
-				"url":"https://feeds.feedburner.com/inc/channel/start-up"
-			}
-		]
-	},
-	{
-		"id":"entertainment",
-		"title":"Entertainment",
-		"image":"img/feeds/entertainment.jpg",
-		"feed_sources":[
-			{
-				"id":"the-hollywood-reporter",
-				"title":"The Hollywood Reporter",
-				"description":"The Hollywood Reporter news",
-				"image":"img/feeds/logos/the-hollywood-reporter.jpg",
-				"url":"https://feeds.feedburner.com/thr/news"
-			},
-			{
-				"id":"tmz",
-				"title":"TMZ",
-				"description":"Celebrity Gossip and Entertainment News, Covering Celebrity News and Hollywood Rumors. Get All The Latest Gossip at TMZ - Thirty Mile Zone.",
-				"image":"img/feeds/logos/tmz.jpg",
-				"url":"https://www.tmz.com/rss.xml"
-			},
-			{
-				"id":"the-guardian",
-				"title":"The Guardian",
-				"description":"Latest news and features from theguardian.com, the world's leading liberal voice",
-				"image":"img/feeds/logos/the-guardian.jpg",
-				"url":"http://www.theguardian.com/culture/rss"
-			}
-		]
-	},
-	{
-		"id":"politics",
-		"title":"Politics",
-		"image":"img/feeds/politics.jpg",
-		"feed_sources":[
-			{
-				"id":"bbc",
-				"title":"BBC",
-				"description":"The latest stories from the World section of the BBC News web site.",
-				"image":"img/feeds/logos/bbc.jpg",
-				"url":"https://feeds.bbci.co.uk/news/world/rss.xml"
-			},
-			{
-				"id":"the-nation",
-				"title":"The Nation",
-				"description":"The Nation politics news",
-				"image":"img/feeds/logos/the-nation.jpg",
-				"url":"http://www.thenation.com/blogs/rss/politics"
-			},
-			{
-				"id":"washington-post",
-				"title":"Washington Post",
-				"description":"Post Politics from The Washington Post is the source for political news headlines, in-depth politics coverage and political opinion, plus breaking news on the Obama administration and White House, Congress, the Supreme Court, elections and more.",
-				"image":"img/feeds/logos/washington-post.jpg",
-				"url":"http://feeds.washingtonpost.com/rss/politics"
-			},
-			{
-				"id":"reuters",
-				"title":"Reuters",
-				"description":"Reuters.com is your source for breaking news, business, financial and investing news, including personal finance and stocks. Reuters is the leading global provider of news, financial information and technology solutions to the world's media, financial institutions, businesses and individuals.",
-				"image":"img/feeds/logos/reuters.jpg",
-				"url":"http://feeds.reuters.com/Reuters/PoliticsNews"
-			}
-		]
-	},
-	{
-		"id":"technology",
-		"title":"Technology",
-		"image":"img/feeds/technology.jpg",
-		"feed_sources":[
-			{
-				"id":"techcrunch",
-				"title":"TechCrunch",
-				"description":"Startup and Technology News",
-				"image":"img/feeds/logos/techcrunch.jpg",
-				"url":"https://feeds.feedburner.com/TechCrunch/social"
-			},
-			{
-				"id":"techradar",
-				"title":"Techradar",
-				"description":"Get all the latest tech news from Techradar.com",
-				"image":"img/feeds/logos/techradar.jpg",
-				"url":"https://feeds2.feedburner.com/techradar/allnews"
-			},
-			{
-				"id":"cnet",
-				"title":"CNET",
-				"description":"CNET news editors and reporters provide top technology news, with investigative reporting and in-depth coverage of tech issues and events",
-				"image":"img/feeds/logos/cnet.jpg",
-				"url":"http://www.cnet.com/rss/news/"
-			}
+				"id":"coconut-oil-moisturize",
+				"title":"Coconut oil Moisturize",
+				"description":"PubMed",
+				"image":"img/feeds/logos/ncbi.png",
+				"url":"https://www.ncbi.nlm.nih.gov/entrez/eutils/erss.cgi?rss_guid=1Ts-QavLxpnqWvpm2gHchdoOtE6deIZ4tOeHATKQIV1WXKxYZf"
+			}			
 		]
 	}
 ]

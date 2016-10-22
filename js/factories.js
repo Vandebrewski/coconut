@@ -133,9 +133,9 @@ angular.module('your_app_name.factories', [])
 
   return {
     showBanner: function() {
-      if(window.admob)
+      if(admob)
       {
-        window.admob.createBanner({
+        admob.createBanner({
           adId:admobid.banner,
           position:admob.AD_POSITION.BOTTOM_CENTER,
           autoShow:true,

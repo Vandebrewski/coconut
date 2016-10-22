@@ -80,11 +80,11 @@ angular.module('your_app_name.factories', [])
     });
 
     var defaultOptions = {
-       bannerId: admobid.banner,
-       interstitialId: admobid.interstitial,
-       adSize: 'SMART_BANNER',
-       // width: integer, // valid when set adSize 'CUSTOM'
-       // height: integer, // valid when set adSize 'CUSTOM'
+      // bannerId: admobid.banner,
+      // interstitialId: admobid.interstitial,
+      // adSize: 'SMART_BANNER',
+      // width: integer, // valid when set adSize 'CUSTOM'
+      // height: integer, // valid when set adSize 'CUSTOM'
       position: admob.AD_POSITION.BOTTOM_CENTER,
       // offsetTopBar: false, // avoid overlapped by status bar, for iOS7+
       bgColor: 'black', // color name, or '#RRGGBB'
@@ -133,9 +133,9 @@ angular.module('your_app_name.factories', [])
 
   return {
     showBanner: function() {
-      if(admob)
+      if(window.admob)
       {
-        admob.createBanner({
+        window.admob.createBanner({
           adId:admobid.banner,
           position:admob.AD_POSITION.BOTTOM_CENTER,
           autoShow:true,
@@ -187,7 +187,7 @@ angular.module('your_app_name.factories', [])
         // show a default banner at bottom
         iAd.createBanner({
           position:iAd.AD_POSITION.BOTTOM_CENTER,
-          autoShow:true
+          autoShow:false
         });
       }
     },

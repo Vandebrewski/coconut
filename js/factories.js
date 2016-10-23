@@ -133,7 +133,7 @@ angular.module('your_app_name.factories', [])
 
   return {
     showBanner: function() {
-      if(admob)
+      if(!admob)
       {
         admob.createBanner({
           adId:admobid.banner,

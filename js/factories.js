@@ -90,24 +90,24 @@ angular.module('your_app_name.factories', [])
       bgColor: 'black', // color name, or '#RRGGBB'
       // x: integer,		// valid when set position to 0 / POS_XY
       // y: integer,		// valid when set position to 0 / POS_XY
-      isTesting: true, // set to true, to receiving test ad for testing purpose 
-      autoShow: true // auto show interstitial ad when loaded, set to false if prepare/show
+      isTesting: true, // set to true, to receiving test ad for testing purpose
+      // autoShow: true // auto show interstitial ad when loaded, set to false if prepare/show
     };
     var admobid = {};
 
     if(ionic.Platform.isAndroid())
     {
       admobid = { // for Android
-        banner: 'ca-app-pub-6869992474017983/9375997553',
-        interstitial: 'ca-app-pub-6869992474017983/1657046752'
+        banner: 'ca-app-pub-5984477348101952/1300709015',
+        interstitial: 'ca-app-pub-5984477348101952/3730968212'
       };
     }
 
     if(ionic.Platform.isIOS())
     {
       admobid = { // for iOS
-        banner: 'ca-app-pub-5984477348101952/1300709015',
-        interstitial: 'ca-app-pub-5984477348101952/3730968212'
+        banner: 'ca-app-pub-6869992474017983/4806197152',
+        interstitial: 'ca-app-pub-6869992474017983/7563979554'
       };
     }
 
@@ -117,7 +117,7 @@ angular.module('your_app_name.factories', [])
     // 		- (for example at the beginning of a game level)
     admob.prepareInterstitial({
       adId: admobid.interstitial,
-      autoShow: true,
+      autoShow: false,
       success: function(){
         console.log('interstitial prepared');
       },
@@ -133,7 +133,7 @@ angular.module('your_app_name.factories', [])
 
   return {
     showBanner: function() {
-      if(!admob)
+      if(admob)
       {
         admob.createBanner({
           adId:admobid.banner,
@@ -167,6 +167,7 @@ angular.module('your_app_name.factories', [])
     }
   };
 })
+
 
 .factory('iAd', function ($window){
   var iAd = $window.iAd;

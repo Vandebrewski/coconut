@@ -117,7 +117,7 @@ angular.module('your_app_name.factories', [])
     // 		- (for example at the beginning of a game level)
     admob.prepareInterstitial({
       adId: admobid.interstitial,
-      autoShow: false,
+      autoShow: true,
       success: function(){
         console.log('interstitial prepared');
       },
@@ -157,6 +157,7 @@ angular.module('your_app_name.factories', [])
         // If you did prepare it before, then show it like this
         // 		- (for example: check and show it at end of a game level)
         admob.showInterstitial();
+        admob.showBanner();
       }
     },
     removeAds: function() {

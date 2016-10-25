@@ -1,5 +1,5 @@
 function adSetter(){
-alert(navigator.userAgent);
+//alert(navigator.userAgent);
 var admobid = {};
 // select the right Ad Id according to platform
 if( /(android)/i.test(navigator.userAgent) ) { 

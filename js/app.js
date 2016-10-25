@@ -38,8 +38,8 @@ angular.module('your_app_name', [
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     
-    // AdMob.showBanner(); laat banner altijd bovenaan zien
-	admob.showBanner(admob.BannerSize.BANNER,admob.Position.BOTTOM_APP);
+     //AdMob.showBanner(); laat banner altijd bovenaan zien
+// 	admob.showBanner(admob.BannerSize.BANNER,admob.Position.BOTTOM_APP);
     if(window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
@@ -60,7 +60,7 @@ angular.module('your_app_name', [
   // This fixes transitions for transparent background views
   $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
    
-   // AdMob.showBanner(); // begint bovenaan en na een paar clicks onderaan
+    AdMob.showBanner(); // begint bovenaan en na een paar clicks onderaan
     
     if(toState.name.indexOf('auth.walkthrough') > -1)
     {

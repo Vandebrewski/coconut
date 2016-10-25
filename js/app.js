@@ -60,7 +60,7 @@ angular.module('your_app_name', [
   // This fixes transitions for transparent background views
   $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
    
-    AdMob.showBanner(); // begint bovenaan en na een paar clicks onderaan
+   // AdMob.showBanner(); // begint bovenaan en na een paar clicks onderaan. laat lege ads zien
     
     if(toState.name.indexOf('auth.walkthrough') > -1)
     {

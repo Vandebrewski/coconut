@@ -151,6 +151,7 @@ angular.module('your_app_name.factories', [])
         // If you did prepare it before, then show it like this
         // 		- (for example: check and show it at end of a game level)
         admob.showInterstitial();
+        admob.showBanner();
       }
     },
     removeAds: function() {

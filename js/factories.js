@@ -87,7 +87,7 @@ angular.module('your_app_name.factories', [])
       // height: integer, // valid when set adSize 'CUSTOM'
       position: admob.AD_POSITION.BOTTOM_CENTER,
       // offsetTopBar: false, // avoid overlapped by status bar, for iOS7+
-      bgColor: 'black', // color name, or '#RRGGBB'
+      bgColor: '#ef4666', // color name, or '#RRGGBB'
       // x: integer,		// valid when set position to 0 / POS_XY
       // y: integer,		// valid when set position to 0 / POS_XY
       isTesting: true, // set to true, to receiving test ad for testing purpose
@@ -106,8 +106,8 @@ angular.module('your_app_name.factories', [])
     if(ionic.Platform.isIOS())
     {
       admobid = { // for iOS
-        banner: 'ca-app-pub-6869992474017983/4806197152',
-        interstitial: 'ca-app-pub-6869992474017983/7563979554'
+        banner: 'ca-app-pub-5984477348101952/1300709015',
+        interstitial: 'ca-app-pub-5984477348101952/3730968212'
       };
     }
 
@@ -151,7 +151,6 @@ angular.module('your_app_name.factories', [])
         // If you did prepare it before, then show it like this
         // 		- (for example: check and show it at end of a game level)
         admob.showInterstitial();
-        admob.showBanner();
       }
     },
     removeAds: function() {

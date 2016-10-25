@@ -39,7 +39,7 @@ angular.module('your_app_name', [
     // for form inputs)
     
     // AdMob.showBanner(); laat banner altijd bovenaan zien
-    AdMob.showBanner();
+	admob.showBanner(admob.BannerSize.BANNER,admob.Position.BOTTOM_APP);
     if(window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }

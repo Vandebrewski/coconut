@@ -1,6 +1,6 @@
 [
 	{
-		"id":"health",
+		"id":"health-related-articles-on-coconut-oil",
 		"title":"Health related articles on Coconut Oil",
 		"image":"img/feeds/health.jpg",
 		"feed_sources":[
@@ -56,7 +56,7 @@
 		]
 	},
 	{
-		"id":"beauty",
+		"id":"beauty-related-articles-on-coconut-oil",
 		"title":"Beauty related articles on Coconut Oil",
 		"image":"img/feeds/beauty.jpg",
 		"feed_sources":[

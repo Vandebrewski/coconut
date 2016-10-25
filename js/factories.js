@@ -138,13 +138,7 @@ angular.module('your_app_name.factories', [])
         admob.createBanner({
           adId:admobid.banner,
           position:admob.AD_POSITION.BOTTOM_CENTER,
-          autoShow:true,
-          success: function(){
-            console.log('banner created');
-          },
-          error: function(){
-            console.log('failed to create banner');
-          }
+          autoShow:true
         });
       }
     },

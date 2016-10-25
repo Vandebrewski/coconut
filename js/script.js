@@ -14,20 +14,19 @@ if( /(android)/i.test(navigator.userAgent) ) {
     };
 } else {
     admobid = { // for Windows Phone
-        banner: 'ca-app-pub-6869992474017983/8878394753',
-        interstitial: 'ca-app-pub-6869992474017983/1355127956'
+        banner: '',
+        interstitial: ''
     };
 }
 
 if(AdMob) AdMob.createBanner( {
-    isTesting:true, //Remove this Before publishing your app
+    isTesting:false, //Remove this Before publishing your app
     adId:admobid.banner, 
     position:AdMob.AD_POSITION.BOTTOM_CENTER, 
     autoShow:true} );
 
 }
   function onDeviceReady(){
-  alert("device ready");
       adSetter();
   }
 
